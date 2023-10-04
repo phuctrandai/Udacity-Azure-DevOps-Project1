@@ -15,7 +15,7 @@ For this project, you will write a Packer template and a Terraform template to d
 4. Install [Terraform](https://www.terraform.io/downloads.html)
 
 ### Instructions
-**Your words here**
+
 To use the code in this project, follow the steps below:
 
 1. Build the Machine Image with Packer.
@@ -38,12 +38,12 @@ To use the code in this project, follow the steps below:
 
 3. Customization.
 
-To customize this project for your specific use case, follow the steps below:
-  * Open the variables.tf file in the terraform directory.
-  * Modify the variables according to your requirements.
+  To customize this project for your specific use case, follow the steps below:
+    * Open the variables.tf file in the terraform directory.
+    * Modify the variables according to your requirements.
 
 ### Output
-**Your words here**
+
 After successfully running the Packer and Terraform templates, you can expect the following output:
 
 1. Packer:
@@ -63,4 +63,4 @@ After successfully running the Packer and Terraform templates, you can expect th
 
 3. Verification:
 
-You can verify the successful deployment by accessing the Azure portal and review the resources.
+  You can verify the successful deployment by accessing the Azure portal and review the resources.
