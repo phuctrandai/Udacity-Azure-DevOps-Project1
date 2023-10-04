@@ -38,9 +38,9 @@ To use the code in this project, follow the steps below:
 
 3. Customization.
 
-  To customize this project for your specific use case, follow the steps below:
-    * Open the variables.tf file in the terraform directory.
-    * Modify the variables according to your requirements.
+To customize this project for your specific use case, follow the steps below:
+  * Open the variables.tf file in the terraform directory.
+  * Modify the variables according to your requirements.
 
 ### Output
 
