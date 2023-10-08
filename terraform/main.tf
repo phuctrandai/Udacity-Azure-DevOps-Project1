@@ -42,9 +42,23 @@ resource "azurerm_network_security_group" "main" {
   }
 }
 
-resource "azurerm_network_security_rule" "allow_internal" {
-  name                        = "allow-internal"
+resource "azurerm_network_security_rule" "deny_internet" {
+  name                        = "deny-internet"
   priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Deny"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "VirtualNetwork"
+  resource_group_name         = azurerm_resource_group.main.name
+  network_security_group_name = azurerm_network_security_group.main.name
+}
+
+resource "azurerm_network_security_rule" "internal_inbound" {
+  name                        = "internal-inbound"
+  priority                    = 200
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "*"
@@ -56,16 +70,31 @@ resource "azurerm_network_security_rule" "allow_internal" {
   network_security_group_name = azurerm_network_security_group.main.name
 }
 
-resource "azurerm_network_security_rule" "deny_internet" {
-  name                        = "deny-internet"
+resource "azurerm_network_security_rule" "internal_outbound" {
+  name                        = "internal-outbound"
   priority                    = 200
-  direction                   = "Inbound"
-  access                      = "Deny"
+  direction                   = "Outbound"
+  access                      = "Allow"
   protocol                    = "*"
   source_port_range           = "*"
   destination_port_range      = "*"
-  source_address_prefix       = "*"
+  source_address_prefix       = "VirtualNetwork"
   destination_address_prefix  = "VirtualNetwork"
+  resource_group_name         = azurerm_resource_group.main.name
+  network_security_group_name = azurerm_network_security_group.main.name
+}
+
+resource "azurerm_network_security_rule" "internal_inbound_lb_vm" {
+  count                       = 2
+  name                        = "internal-inbound-lb-vm-${count.index}"
+  priority                    = 200 + (count.index + 1)
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "AzureLoadBalancer"
+  destination_address_prefix  = azurerm_network_interface.main[count.index].private_ip_address
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = azurerm_network_security_group.main.name
 }

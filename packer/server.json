@@ -24,8 +24,9 @@
 		}],
 	"provisioners": [{
 		"inline": [
-			"echo 'Hello, World!' > index.html",
-			"nohup busybox httpd -f -p 80 &"
+			"sudo apt-get update",
+			"sudo apt-get install -y nginx",
+			"sudo service nginx start"
 		],
 		"inline_shebang": "/bin/sh -x",
 		"type": "shell"
